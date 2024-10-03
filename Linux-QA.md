@@ -447,11 +447,109 @@ A **zombie process** is a process that has finished executing but remains in the
    - **Kill the parent process**: This will transfer ownership of the zombie to the `init` process, which will clean it up.
    - Alternatively, restart the parent process so it can handle the zombie properly.
 
+# User and Group Management 
+# Q. How to Create a New User in Linux
 
+In Linux, you can create a new user using the `useradd` or `adduser` command, depending on your distribution.
 
+### 1. Using `useradd` Command:
+The `useradd` command is a low-level utility to create a new user.
 
+#### Syntax:
+```bash
+sudo useradd -m -s /bin/bash new_username
+```
+- `-m`: Creates a home directory for the user.
+- `-s /bin/bash`: Sets the user's default shell (e.g., Bash shell).
+# Example:
+```bash
+sudo useradd -m -s /bin/bash john
+```
+After this, you need to set the password for the new user:
+```bash
+sudo passwd john
+```
+### 2. Using adduser Command (Debian/Ubuntu):
+The `adduser` command is a more user-friendly way to add a new user.
+```bash
+sudo adduser john
+```
 
+# Q. Difference Between `/etc/passwd` and `/etc/shadow` Files in Linux:
 
+1. **`/etc/passwd`**:
+   - **Purpose**: Contains basic user account information, such as the username, user ID (UID), group ID (GID), home directory, and default shell.
+   - **Visibility**: World-readable (accessible by all users).
+   - **Password Storage**: Historically, it stored user passwords, but now it just contains a placeholder (e.g., `x`) to indicate that the password is stored in the `/etc/shadow` file for security reasons.
 
+2. **`/etc/shadow`**:
+   - **Purpose**: Stores encrypted user passwords and additional security-related information like password expiration and account lockout.
+   - **Visibility**: Only accessible by the root user (highly restricted for security reasons).
+   - **Security**: Keeps sensitive password data secure by being accessible only to privileged users.
+   - 
+# Q. How to Change a User's Password in Linux
+
+In Linux, you can change a user's password using the `passwd` command. This works for both your own password and any other user's password (if you have root privileges).
+
+### 1. Change Your Own Password
+To change your own password, simply run:
+```bash
+passwd
+```
+### 2. Change Another User's Password (as root or with sudo)
+If you are an administrator (root) or have sudo privileges, you can change another user's password by specifying their username:
+```bash
+sudo passwd username
+```
+Example:
+```bash
+sudo passwd john
+```
+
+# Q. Purpose of the `sudo` Command
+
+The `sudo` command in Linux allows a permitted user to execute commands as the **root user** (administrator) or another user with elevated privileges. It is often used for administrative tasks such as installing software, changing system configurations, and managing files outside the user’s home directory.
+
+Using `sudo` provides a layer of security by not requiring users to log in as the root user directly. Instead, users can temporarily elevate their privileges to execute a specific command, which is logged for security auditing.
+
+#### Example of Using `sudo`:
+```bash
+sudo apt update
+```
+This command updates the system package list, but it requires root permissions, so `sudo` is used.
+
+### How to Grant a User sudo Privileges
+To grant a user `sudo` privileges, you need to add the user to the `sudo` group or modify the `/etc/sudoers` file.
+
+1. Add a User to the `sudo` Group (Preferred Method)
+Most Linux distributions, such as Ubuntu, grant `sudo` privileges by adding the user to the `sudo` group.
+```bash
+sudo usermod -aG sudo username
+```
+- `-aG sudo`: Appends the user to the sudo group.
+- `username`: Replace this with the actual username.
+```bash
+sudo usermod -aG sudo john
+```
+2. Modify the /etc/sudoers File (Advanced Method)
+You can also manually grant `sudo` privileges by editing the `/etc/sudoers` file.
+```bash
+sudo visudo
+```
+- Add a line to the file to grant a user `sudo` privileges:
+```bash
+username ALL=(ALL:ALL) ALL
+```
+Replace username with the actual username.
+Example:
+```bash
+john ALL=(ALL:ALL) ALL
+```
+This gives the user `john` full `sudo` privileges.
+Verify `sudo` Privileges:
+To verify that a user has `sudo` privileges, run:
+```bash
+sudo -l
+```
 
 

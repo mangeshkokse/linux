@@ -433,11 +433,11 @@ The output will show jobs with a number like `[1]`, `[2]`, etc.
 fg %job_number
 ```
 
-### What is a Zombie Process in Linux?
+# Q. What is a Zombie Process in Linux?
 
 A **zombie process** is a process that has finished executing but remains in the process table because its parent has not read its exit status. While it no longer consumes CPU or memory, it still occupies a process slot.
 
-# Q. How to Prevent or Remove a Zombie Process?
+### How to Prevent or Remove a Zombie Process?
 
 1. **Preventing Zombie Processes**:
    - Ensure the parent process calls `wait()` or `waitpid()` to handle the termination of child processes.

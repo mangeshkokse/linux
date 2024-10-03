@@ -134,7 +134,7 @@ cat /proc/version
 ```bash
 Linux version 5.4.0-74-generic (buildd@lcy01-amd64-027) (gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04)) #83-Ubuntu SMP Wed Jun 2 01:29:47 UTC 2021
 ```
-### What is the Root User in Linux?
+# Q. What is the Root User in Linux?
 
 The **root user** in Linux is the superuser or administrative user with full control over the entire system. This user has **unrestricted access** to all files, commands, and system resources. The root user can:
 - Install and remove software.
@@ -285,6 +285,22 @@ This creates a hard link at `/path/to/hardlink` pointing to the same inode as `/
 | **Link to Directories**      | Yes, can link to directories    | No, only links to files          |
 | **Storage Use**              | Small, stores file path         | No additional space required     |
 ```
+
+# Q. Finding and Deleting Files Older Than a Certain Number of Days in Linux
+
+You can use the `find` command to find and delete files older than a specific number of days.
+
+#### Syntax for Finding Files:
+```bash
+find /path/to/directory -type f -mtime +N
+```
+Where:
+- `/path/to/directory` is the directory where you want to search.
+- `-type f` tells `find` to search for files.
+
+
+***# Process Management*** 
+
 
 
 
